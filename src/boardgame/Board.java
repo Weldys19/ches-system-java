@@ -7,6 +7,9 @@ public class Board {
 	private Piece[][] pieces;
 	
 	public Board(int rows, int columns) {
+		if (rows < 1 || columns < 1) {
+			throw new BoardException("Erro criando o tabuleiro! Linhas e colunas devem ser pelo menos 1 e 1 respectivamente");
+		}
 		this.rows = rows;
 		this.columns = columns;
 		pieces = new Piece[rows][columns];
@@ -16,28 +19,45 @@ public class Board {
 		return rows;
 	}
 
-	public void setRows(int rows) {
-		this.rows = rows;
-	}
-
 	public int getColumns() {
 		return columns;
 	}
 
-	public void setColumns(int columns) {
-		this.columns = columns;
-	}
-	
 	public Piece piece(int rows, int columns) {
+		if (!positionExistis(rows, columns)) {
+			throw new BoardException("Posicao inexistente no tabuleiro!");
+		}
 		return pieces[rows][columns];
 	}
 	
 	public Piece piece(Position position) {
+		if (!positionExistis(position)) {
+			throw new BoardException("Posicao inexistente no tabuleiro!");
+		}
 		return pieces[position.getRow()][position.getColumn()];
 	}
 	
 	public void placePiece(Piece piece, Position position) {
+		if (thereIsAPiece(position)) {
+			throw new BoardException("A posicao " + position + " esta ocupada!");
+		}
 		pieces[position.getRow()][position.getColumn()] = piece;
 		piece.position = position;
+	}
+	
+	private boolean positionExistis(int row, int column) {
+		return row >= 0 && row < rows && column >= 0 && column < columns;
+	}
+	
+	public boolean positionExistis(Position position) {
+		return positionExistis(position.getRow(), position.getColumn());
+	}
+	
+	public boolean thereIsAPiece(Position position) {
+		if (!positionExistis(position)) {
+			throw new BoardException("Posicao inexistente no tabuleiro!");
+		}
+		return piece(position) != null;
+				
 	}
 }
