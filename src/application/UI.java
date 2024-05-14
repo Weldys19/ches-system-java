@@ -3,6 +3,7 @@ package application;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import boardgame.Piece;
 import chess.ChessPiece;
 import chess.ChessPosition;
 import chess.Color;
