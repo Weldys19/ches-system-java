@@ -34,10 +34,10 @@ public class Main {
 				System.out.print("Posicao de destino: ");
 				ChessPosition target = UI.readchessPosition(sc);
 				
-				ChessPiece capuredPiece = chessMatch.performChessMove(source, target);
+				ChessPiece capturedPiece = chessMatch.performChessMove(source, target);
 				
-				if (captured != null) {
-					captured.add(capuredPiece);
+				if (capturedPiece != null) {
+					captured.add(capturedPiece);
 				}
 			}
 			catch (ChessException e) {
